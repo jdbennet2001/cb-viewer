@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Reader.css';
 
-import {Breadcrumb, BreadcrumbItem, Slider} from 'carbon-components-react';
+import {Breadcrumb, BreadcrumbItem} from 'carbon-components-react';
+
+import Slider from 'react-rangeslider'
 
 import {nextPageAction, previousPageAction, openRootFolderAction} from '../actions/initAction'
 
@@ -10,6 +12,14 @@ import home_icon from '../icons/home.svg'
 
 
 class Reader extends Component {
+
+ constructor(props, context) {
+    super(props, context)
+
+	    this.state = {
+	      value: 0
+	    }
+	}
 
   chompLeft(s='', prefix=''){
     if (s.indexOf(prefix) === 0 ){
@@ -19,11 +29,18 @@ class Reader extends Component {
     return s;
   }
 
-  onChange(){
-  	alert('Slide!')
+  onChange = (value) => {
+
+  	this.setState({
+      value: value
+    });
+
+  	console.log('Slide! ' + value);
   }
 
   render() {
+
+  	let {value} = this.state;
 
   	let {directory, name, length, location, page} = this.props.reading;
   	let {source_dir} = this.props.model;
@@ -47,7 +64,7 @@ class Reader extends Component {
         </header>
 
         <div className='reader-footer'>
-        	<Slider className='slider'  value={page}  min={0}  max={length} onChange={this.onChange}></Slider>
+        	<Slider  className='slider' value={value} max={length} onChange={this.onChange}  ></Slider>
         </div>
       
       </div>
