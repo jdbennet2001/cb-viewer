@@ -5,7 +5,7 @@ import './App.css';
 
 import Canvas from './components/Canvas'
 
-import { initAction, openFolderAction, openParentFolderAction } from './actions/initAction'
+import { initAction, openFolderAction, openParentFolderAction, openRootFolderAction } from './actions/initAction'
 import { Search } from 'carbon-components-react';
 
 import home_icon from './icons/home.svg'
@@ -38,14 +38,18 @@ class App extends Component {
         
         <header className="App-header">
 
-          <img className='top-action' src={home_icon} alt="Home" height="32" width="32"></img>
-          <img className='top-action' src={parent_icon} alt="Parent Folder" height="32" width="32"></img>
+          <img className='top-action' src={home_icon} onClick={this.props.openRootFolderAction} alt="Home" height="32" width="32"></img>
+          <img className='top-action' src={parent_icon} onClick={this.props.openParentFolderAction} alt="Parent Folder" height="32" width="32"></img>
           <Search  className="top-search" labelText="Search" placeHolderText="Search" />
 
         </header>
 
-        <Canvas folders={folders} archives={archives} openFolderAction={this.props.openFolder}/>
-        
+        <Canvas folders = {folders}
+                archives = {archives}
+                openFolderAction = {this.props.openFolder}
+                openParentFolderAction = {this.props.openParentFolderAction}
+        />
+
       </div>
     );
   }
@@ -57,7 +61,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
  simpleAction: (data)  => dispatch(initAction(data)),
- openFolder: (data) => dispatch(openFolderAction(data))
+ openFolder: (data) => dispatch(openFolderAction(data)),
+ openParentFolderAction: (data) => dispatch(openParentFolderAction(data)),
+ openRootFolderAction: (data) => dispatch(openRootFolderAction(data))
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

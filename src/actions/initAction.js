@@ -18,3 +18,10 @@ export const openParentFolderAction = (payload) => dispatch => {
   payload
  })
 }
+
+export const openRootFolderAction = (payload) => dispatch => {
+ dispatch({
+  type: 'MODEL_ROOT',
+  payload
+ })
+}

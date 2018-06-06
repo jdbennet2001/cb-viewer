@@ -19,7 +19,6 @@ class Canvas extends Component {
 
   openFolder = (folder) =>{
     this.props.openFolderAction(folder);
-    alert(`Open Folder: ${folder}`);
   }
 
   render() {

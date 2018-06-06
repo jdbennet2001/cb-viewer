@@ -9,13 +9,20 @@ export default (state = {}, action={}) => {
 	}
 	
 	if ( action.type === 'MODEL_UP'){
-	   let new_dir 		  	  = path.join(state.current_dir, '..' );
+	   let is_root = state.current_dir === state.source_dir;
+	   let new_dir = is_root ? state.source_dir : path.join(state.current_dir, '..' );
 	   let directory_contents = get_contents(state, new_dir);
 	   return Object.assign({}, state, directory_contents);
 	}
 
 	if ( action.type === 'MODEL_DOWN'){
 	   let new_dir 		  	  = action.payload;
+	   let directory_contents = get_contents(state, new_dir);
+	   return Object.assign({}, state, directory_contents);
+	}
+
+	if ( action.type === 'MODEL_ROOT'){
+	   let new_dir 		  	  = state.source_dir;
 	   let directory_contents = get_contents(state, new_dir);
 	   return Object.assign({}, state, directory_contents);
 	}
