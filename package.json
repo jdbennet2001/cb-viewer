@@ -6,6 +6,7 @@
     "carbon-components": "^9.0.2",
     "carbon-components-react": "^6.1.0",
     "carbon-icons": "^7.0.6",
+    "path": "^0.12.7",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
@@ -14,7 +15,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
