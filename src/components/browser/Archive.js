@@ -3,7 +3,7 @@ import path from 'path'
 
 import './Archive.css';
 
-import comic_book from '../icons/comic-book.svg'
+import comic_book from '../../icons/comic-book.svg'
 
 
 class Archive extends Component {

@@ -1,56 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import './App.css';
 
+import Browser from './components/Browser'
+import Reader  from './components/Reader'
 
-import Canvas from './components/Canvas'
+import {initAction} from './actions/initAction'
 
-import { initAction, openFolderAction, openParentFolderAction, openRootFolderAction } from './actions/initAction'
-import { Search } from 'carbon-components-react';
+const CB_SERVER_URL = "http://localhost:2002/model";
 
-import home_icon from './icons/home.svg'
-import parent_icon from './icons/parent-folder.svg'
-
-
+/*
+ Main class for the CB - Viewer Application
+ */
 class App extends Component {
 
-  simpleAction = (event) => {
-   this.props.simpleAction();
-  }
 
+  /* Load model at program start up */
   componentDidMount(){
     let action = this.props.simpleAction;
-    fetch("http://localhost:2002/model")
-    .then(response => {
+
+    fetch(CB_SERVER_URL).then(response => {
       return response.json()
     }).then(jsondata => {
       return action(jsondata);
     })
+    
   }
 
+  /* Render either the file browser or the archive reader */
   render() {
 
-    let folders = this.props.modelReducer.current_folders || [];
-    let archives = this.props.modelReducer.current_archives || [];
-
     return (
-      <div className="App">
-        
-        <header className="App-header">
-
-          <img className='top-action' src={home_icon} onClick={this.props.openRootFolderAction} alt="Home" height="32" width="32"></img>
-          <img className='top-action' src={parent_icon} onClick={this.props.openParentFolderAction} alt="Parent Folder" height="32" width="32"></img>
-          <Search  className="top-search" labelText="Search" placeHolderText="Search" />
-
-        </header>
-
-        <Canvas folders = {folders}
-                archives = {archives}
-                openFolderAction = {this.props.openFolder}
-                openParentFolderAction = {this.props.openParentFolderAction}
-        />
-
-      </div>
+      <Browser>    
+      </Browser>
     );
   }
 }
@@ -60,11 +43,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
- simpleAction: (data)  => dispatch(initAction(data)),
- openFolder: (data) => dispatch(openFolderAction(data)),
- openParentFolderAction: (data) => dispatch(openParentFolderAction(data)),
- openRootFolderAction: (data) => dispatch(openRootFolderAction(data))
-
+ simpleAction: (data)  => dispatch(initAction(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+

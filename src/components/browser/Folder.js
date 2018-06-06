@@ -3,7 +3,7 @@ import path from 'path'
 
 import './Folder.css';
 
-import comic from '../icons/comic.svg'
+import comic from '../../icons/comic.svg'
 
 
 class Folder extends Component {

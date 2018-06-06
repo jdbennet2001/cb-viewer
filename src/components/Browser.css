@@ -1,0 +1,41 @@
+.App {
+  text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
+    height: 100%;
+}
+
+.App-header {
+  background-color: grey;
+  height: 50px;
+  padding: 5px;
+  color: white;
+
+  flex: 0 1 auto;
+  align-self: auto;
+}
+
+
+.top-search{
+  max-width: 250px;
+  float: right;
+}
+
+.top-action{
+  float: left;
+  margin-left:10px;
+  cursor: pointer;
+}
+
+.catalog-area{
+  flex: 1 1 auto;
+  align-self: auto;
+  background-color: lightgrey;
+}
+
+

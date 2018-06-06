@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Canvas.css';
 
-import comic from '../icons/comic.svg'
+import comic from '../../icons/comic.svg'
 
 import Folder from './Folder'
 import Archive from './Archive'
