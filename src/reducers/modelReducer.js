@@ -15,7 +15,7 @@ export default (state = {}, action={}) => {
 	}
 
 	if ( action.type === 'MODEL_DOWN'){
-	   let new_dir 		  	  = action.payload.new_dir;
+	   let new_dir 		  	  = action.payload;
 	   let directory_contents = get_contents(state, new_dir);
 	   return Object.assign({}, state, directory_contents);
 	}

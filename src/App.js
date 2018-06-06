@@ -5,7 +5,7 @@ import './App.css';
 
 import Canvas from './components/Canvas'
 
-import { initAction } from './actions/initAction'
+import { initAction, openFolderAction, openParentFolderAction } from './actions/initAction'
 import { Search } from 'carbon-components-react';
 
 import home_icon from './icons/home.svg'
@@ -44,7 +44,7 @@ class App extends Component {
 
         </header>
 
-        <Canvas folders={folders} archives={archives}/>
+        <Canvas folders={folders} archives={archives} openFolderAction={this.props.openFolder}/>
         
       </div>
     );
@@ -56,7 +56,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
- simpleAction: (data)  => dispatch(initAction(data))
+ simpleAction: (data)  => dispatch(initAction(data)),
+ openFolder: (data) => dispatch(openFolderAction(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

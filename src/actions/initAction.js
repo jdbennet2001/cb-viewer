@@ -4,3 +4,17 @@ export const initAction = (payload) => dispatch => {
   payload
  })
 }
+
+export const openFolderAction = (payload) => dispatch => {
+ dispatch({
+  type: 'MODEL_DOWN',
+  payload
+ })
+}
+
+export const openParentFolderAction = (payload) => dispatch => {
+ dispatch({
+  type: 'MODEL_UP',
+  payload
+ })
+}

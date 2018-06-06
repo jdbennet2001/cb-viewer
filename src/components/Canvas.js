@@ -18,6 +18,7 @@ class Canvas extends Component {
   }
 
   openFolder = (folder) =>{
+    this.props.openFolderAction(folder);
     alert(`Open Folder: ${folder}`);
   }
 
@@ -28,7 +29,7 @@ class Canvas extends Component {
     });
 
     let archives = this.props.archives.map(archive =>{
-      return <Archive location={archive} onClick={this.openArchive}></Archive>
+      return <Archive archive={archive} onClick={this.openArchive}></Archive>
     });
 
 
