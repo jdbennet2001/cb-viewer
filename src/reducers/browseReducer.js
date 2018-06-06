@@ -5,7 +5,7 @@ export default (state = {}, action={}) => {
 
 	if ( action.type === 'MODEL_LOAD'){
 	   let directory_contents = get_contents(action.payload, action.payload.source_dir);
-	   return Object.assign({}, action.payload, directory_contents);
+	   return Object.assign({}, action.payload, directory_contents, {state: 'BROWSING'});
 	}
 	
 	if ( action.type === 'MODEL_UP'){

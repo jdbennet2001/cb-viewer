@@ -14,7 +14,7 @@ class Canvas extends Component {
   }
 
   openArchive = (archive) =>{
-    alert(`Open Archive: ${archive}`);
+    this.props.openArchiveAction(archive);
   }
 
   openFolder = (folder) =>{
@@ -24,11 +24,11 @@ class Canvas extends Component {
   render() {
 
     let folders = this.props.folders.map(folder =>{
-      return <Folder location={folder} onClick={this.openFolder}></Folder>
+      return <Folder location={folder} onClick={this.openFolder} key={folder}></Folder>
     });
 
     let archives = this.props.archives.map(archive =>{
-      return <Archive archive={archive} onClick={this.openArchive}></Archive>
+      return <Archive archive={archive} onClick={this.openArchive} key={archive.name}></Archive>
     });
 
 

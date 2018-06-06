@@ -5,7 +5,7 @@ import rootReducer from './reducers/rootReducer';
 export default function configureStore() {
  return createStore(
   	rootReducer,
-  	{modelReducer: { folders: [], archives: [] }},
+  	{model: { folders: [], archives: [] }},
    	applyMiddleware(thunk)
  );
 }

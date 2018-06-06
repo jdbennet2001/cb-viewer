@@ -5,28 +5,18 @@ export default (state = {}, action={}) => {
 
 	if ( action.type === 'MODEL_LOAD'){
 	   let directory_contents = get_contents(action.payload, action.payload.source_dir);
-	   return Object.assign({}, action.payload, directory_contents);
+	   return Object.assign({}, action.payload, directory_contents, {state: 'BROWSING'});
+	}
+
+	if ( action.type === 'OPEN_ARCHIVE'){
+	   return Object.assign({}, state, {state: 'READING'});
+	}
+
+	if ( action.type === 'CLOSE_ARCHIVE'){
+	   return Object.assign({}, state, {state: 'BROWSING'});
 	}
 	
-	if ( action.type === 'MODEL_UP'){
-	   let is_root = state.current_dir === state.source_dir;
-	   let new_dir = is_root ? state.source_dir : path.join(state.current_dir, '..' );
-	   let directory_contents = get_contents(state, new_dir);
-	   return Object.assign({}, state, directory_contents);
-	}
-
-	if ( action.type === 'MODEL_DOWN'){
-	   let new_dir 		  	  = action.payload;
-	   let directory_contents = get_contents(state, new_dir);
-	   return Object.assign({}, state, directory_contents);
-	}
-
-	if ( action.type === 'MODEL_ROOT'){
-	   let new_dir 		  	  = state.source_dir;
-	   let directory_contents = get_contents(state, new_dir);
-	   return Object.assign({}, state, directory_contents);
-	}
-
+	
 	return state;
 
 }

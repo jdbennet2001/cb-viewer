@@ -12,15 +12,16 @@ import parent_icon from '../icons/parent-folder.svg'
 import {
   openFolderAction,
   openParentFolderAction,
-  openRootFolderAction
+  openRootFolderAction,
+  openArchiveAction
 } from '../actions/initAction'
 
 class Browser extends Component {
 
   render() {
 
-  	let folders = this.props.model.current_folders || [];
-    let archives = this.props.model.current_archives || [];
+  	let folders = this.props.browsing.current_folders || [];
+    let archives = this.props.browsing.current_archives || [];
 
 
     return (
@@ -38,6 +39,7 @@ class Browser extends Component {
                 archives = {archives}
                 openFolderAction = {this.props.openFolder}
                 openParentFolderAction = {this.props.openParentFolderAction}
+                openArchiveAction = {this.props.openArchiveAction}
         />
 
       </div>        
@@ -52,7 +54,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
  openFolder: (data) => dispatch(openFolderAction(data)),
  openParentFolderAction: (data) => dispatch(openParentFolderAction(data)),
- openRootFolderAction: (data) => dispatch(openRootFolderAction(data))
+ openRootFolderAction: (data) => dispatch(openRootFolderAction(data)),
+ openArchiveAction: (data) => dispatch(openArchiveAction(data))
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Browser);

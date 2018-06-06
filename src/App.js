@@ -31,10 +31,14 @@ class App extends Component {
   /* Render either the file browser or the archive reader */
   render() {
 
-    return (
-      <Browser>    
-      </Browser>
-    );
+    if ( this.props.model.state === 'BROWSING'){
+      return <Browser model={this.props.model}></Browser>
+    }else if (this.props.model.state === 'READING'){
+      return <Reader model={this.props.model}></Reader>
+    }else{
+      return <div>Loading...</div>
+    }
+
   }
 }
 

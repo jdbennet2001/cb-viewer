@@ -8,5 +8,55 @@
 
 }
 
+.reader-header{
+
+	position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: grey;
+    height: 50px;
+}
+
+.reader-header .bread-crumb{
+	flex: 1 1 auto;
+    align-self: auto;
+    margin-left: 15px;
+}
+
+.reader-header .home-action {
+	flex: 0 1 auto;
+    align-self: auto;
+}
+
+
+.reader-footer{
+	position: absolute;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: grey;
+    height: 50px;
+}
+
+.reader-footer .slider{
+	flex: 1 1 auto;
+    align-self: auto;
+}
+
 
 

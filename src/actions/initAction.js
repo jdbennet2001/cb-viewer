@@ -25,3 +25,31 @@ export const openRootFolderAction = (payload) => dispatch => {
   payload
  })
 }
+
+export const openArchiveAction = (payload) => dispatch => {
+ dispatch({
+  type: 'OPEN_ARCHIVE',
+  payload
+ })
+}
+
+export const closeArchiveAction = (payload) => dispatch => {
+ dispatch({
+  type: 'CLOSE_ARCHIVE',
+  payload
+ })
+}
+
+export const nextPageAction = (payload) => dispatch => {
+ dispatch({
+  type: 'NEXT_PAGE',
+  payload
+ })
+}
+
+export const previousPageAction = (payload) => dispatch => {
+ dispatch({
+  type: 'PREVIOUS_PAGE',
+  payload
+ })
+}
