@@ -19,8 +19,8 @@ class Browser extends Component {
 
   render() {
 
-  	let folders = this.props.modelReducer.current_folders || [];
-    let archives = this.props.modelReducer.current_archives || [];
+  	let folders = this.props.model.current_folders || [];
+    let archives = this.props.model.current_archives || [];
 
 
     return (
@@ -53,7 +53,6 @@ const mapDispatchToProps = dispatch => ({
  openFolder: (data) => dispatch(openFolderAction(data)),
  openParentFolderAction: (data) => dispatch(openParentFolderAction(data)),
  openRootFolderAction: (data) => dispatch(openRootFolderAction(data))
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Browser);

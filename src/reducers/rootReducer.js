@@ -5,6 +5,6 @@
 import { combineReducers } from 'redux';
 import modelReducer from './modelReducer';
 
-export default combineReducers({
- modelReducer
-});
+export default combineReducers(
+	{ model: modelReducer}
+	);
