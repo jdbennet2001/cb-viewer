@@ -1,0 +1,20 @@
+.catalog-area{
+  /* Take the remainder of the screen */
+  flex: 1 1 auto;
+  align-self: auto;
+
+  /* Debug Color */
+  background-color: lightgrey;
+
+  /* Lay out items in the catalog area */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+
+}
+
+
+

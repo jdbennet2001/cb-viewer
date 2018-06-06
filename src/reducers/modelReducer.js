@@ -4,7 +4,6 @@ import path from 'path'
 export default (state = {}, action={}) => {
 
 	if ( action.type === 'MODEL_LOAD'){
-		debugger;
 	   let directory_contents = get_contents(action.payload, action.payload.source_dir);
 	   return Object.assign({}, action.payload, directory_contents);
 	}

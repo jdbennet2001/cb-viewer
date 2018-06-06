@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import './App.css';
 
 
+import Canvas from './components/Canvas'
+
 import { initAction } from './actions/initAction'
 import { Search } from 'carbon-components-react';
 
@@ -17,7 +19,6 @@ class App extends Component {
   }
 
   componentDidMount(){
-    debugger;
     let action = this.props.simpleAction;
     fetch("http://localhost:2002/model")
     .then(response => {
@@ -28,6 +29,10 @@ class App extends Component {
   }
 
   render() {
+
+    let folders = this.props.modelReducer.current_folders || [];
+    let archives = this.props.modelReducer.current_archives || [];
+
     return (
       <div className="App">
         
@@ -39,8 +44,7 @@ class App extends Component {
 
         </header>
 
-        <div className='catalog-area'>
-        </div>
+        <Canvas folders={folders} archives={archives}/>
         
       </div>
     );
