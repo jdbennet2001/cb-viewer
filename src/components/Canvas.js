@@ -4,6 +4,7 @@ import './Canvas.css';
 import comic from '../icons/comic.svg'
 
 import Folder from './Folder'
+import Archive from './Archive'
 
 
 class Canvas extends Component {
@@ -12,16 +13,29 @@ class Canvas extends Component {
    this.props.simpleAction();
   }
 
+  openArchive = (archive) =>{
+    alert(`Open Archive: ${archive}`);
+  }
+
+  openFolder = (folder) =>{
+    alert(`Open Folder: ${folder}`);
+  }
 
   render() {
 
     let folders = this.props.folders.map(folder =>{
-      return <Folder location={folder}></Folder>
+      return <Folder location={folder} onClick={this.openFolder}></Folder>
     });
+
+    let archives = this.props.archives.map(archive =>{
+      return <Archive location={archive} onClick={this.openArchive}></Archive>
+    });
+
 
     return (
         <div className='catalog-area'>
           {folders}
+          {archives}
         </div>
         
     );
