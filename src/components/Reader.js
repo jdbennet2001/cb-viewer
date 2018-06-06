@@ -10,33 +10,82 @@ import {nextPageAction, previousPageAction, openRootFolderAction} from '../actio
 
 import home_icon from '../icons/home.svg'
 
+import append_query from 'append-query';
+
 
 class Reader extends Component {
 
- constructor(props, context) {
-    super(props, context)
+	constructor(props, context) {
+		super(props, context)
 
-	    this.state = {
-	      value: 0
-	    }
+		this.state = {
+			value: 0,
+			width: 0,
+			height: 0
+		};
+		this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+
 	}
 
-  chompLeft(s='', prefix=''){
-    if (s.indexOf(prefix) === 0 ){
-        return s.slice(prefix.length);
-    
-    }
-    return s;
-  }
+	chompLeft(s = '', prefix = '') {
+		if (s.indexOf(prefix) === 0) {
+			return s.slice(prefix.length);
 
-  onChange = (value) => {
+		}
+		return s;
+	}
 
-  	this.setState({
-      value: value
-    });
+	/* Keep track of how big the screen is */
+	componentDidMount() {
+	  this.updateWindowDimensions();
+	  window.addEventListener('resize', this.updateWindowDimensions);
+	}
 
-  	console.log('Slide! ' + value);
-  }
+	componentWillUnmount() {
+	  window.removeEventListener('resize', this.updateWindowDimensions);
+	}
+
+	updateWindowDimensions() {
+	 	let state = Object.assign({}, this.state, { width: window.innerWidth, height: window.innerHeight });
+	  	this.setState(state);
+	}
+
+	/* Scroll to top after page render */
+	componentWillUpdate(){
+	  // window.scrollTo({top: 0, left: 0, behavior: 'instant'})
+	}
+
+	/* Allow arrow keys to navigate to the next page */
+	handleKeyPress = (e) => {
+
+		const RIGHT_ARROW = 39;
+		const LEFT_ARROW = 37;
+
+		let value = this.state.value;
+		let length = this.props.reading.length;
+
+		if (e.keyCode == RIGHT_ARROW) {
+			let state = Object.assign({}, this.state, {value: Math.min(length, ++value)});
+			this.setState(state);
+		} else if (e.keyCode === LEFT_ARROW) {
+			let state = Object.assign({}, this.state, {value: Math.max(--value , 0)});
+			this.setState(state);
+		}
+	}
+
+	handleClick = (e) => {
+		let state = this.state;
+		this.setState(state);
+	}
+
+	/* Update the page in response to the scroll bar */
+	onChange = (value) => {
+
+		let state = Object.assign({}, this.state, {value});
+		this.setState(state);
+
+		console.log('Slide! ' + value);
+	}
 
   render() {
 
@@ -50,11 +99,13 @@ class Reader extends Component {
   		folders = folders.split('/');
 
   	const breadcrumbs = folders.map(folder =>{
-  		return <BreadcrumbItem href='#'>{folder}</BreadcrumbItem>;
+  		return <BreadcrumbItem href='#' key={folder}>{folder}</BreadcrumbItem>;
   	})
 
+  	let image = append_query( 'http://localhost:2002/page', {archive: location, number: value} );
+
     return (
-      <div className='reader'>
+      <div className='reader' onKeyDown={(event) => this.handleKeyPress(event)} tabIndex="0" >
 
          <header className="reader-header">
              <Breadcrumb className="bread-crumb">
@@ -62,6 +113,8 @@ class Reader extends Component {
 			</Breadcrumb>
           <img className='home-action' src={home_icon} onClick={this.props.openRoot} alt="Home" height="32" width="32"></img>
         </header>
+
+        <img  ref={input => input && input.focus()} className='page' key={image} src={image} tabIndex="0" onClick={this.handleClick}></img>
 
         <div className='reader-footer'>
         	<Slider  className='slider' value={value} max={length} onChange={this.onChange}  ></Slider>
@@ -81,8 +134,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
- nextPage: (data) => dispatch(nextPageAction(data)),
- previousPage: (data) => dispatch(previousPageAction(data)) ,
  openRoot: (data) => dispatch(openRootFolderAction(data)) 
 
 })

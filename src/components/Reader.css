@@ -10,7 +10,7 @@
 
 .reader-header{
 
-	position: absolute;
+	position: fixed;
     left: 0px;
     top: 0px;
     right: 0px;
@@ -36,9 +36,13 @@
     align-self: auto;
 }
 
+.page{
+    max-width: 100%;
+}
+
 
 .reader-footer{
-	position: absolute;
+	position: fixed;
     left: 0px;
     bottom: 0px;
     right: 0px;
