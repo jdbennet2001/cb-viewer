@@ -6,7 +6,7 @@ import {Breadcrumb, BreadcrumbItem} from 'carbon-components-react';
 
 import Slider from 'react-rangeslider'
 
-import {nextPageAction, previousPageAction, openRootFolderAction} from '../actions/initAction'
+import {exitReaderAction} from '../actions/initAction'
 
 import home_icon from '../icons/home.svg'
 
@@ -48,11 +48,6 @@ class Reader extends Component {
 	updateWindowDimensions() {
 	 	let state = Object.assign({}, this.state, { width: window.innerWidth, height: window.innerHeight });
 	  	this.setState(state);
-	}
-
-	/* Scroll to top after page render */
-	componentWillUpdate(){
-	  // window.scrollTo({top: 0, left: 0, behavior: 'instant'})
 	}
 
 	/* Allow arrow keys to navigate to the next page */
@@ -111,7 +106,7 @@ class Reader extends Component {
              <Breadcrumb className="bread-crumb">
 	         	{breadcrumbs}
 			</Breadcrumb>
-          <img className='home-action' src={home_icon} onClick={this.props.openRoot} alt="Home" height="32" width="32"></img>
+          <img className='home-action' src={home_icon} onClick={this.props.exitReader} alt="Home" height="32" width="32"></img>
         </header>
 
         <img  ref={input => input && input.focus()} className='page' key={image} src={image} tabIndex="0" onClick={this.handleClick}></img>
@@ -134,7 +129,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
- openRoot: (data) => dispatch(openRootFolderAction(data)) 
+ exitReader: (data) => dispatch(exitReaderAction(data)) 
 
 })
 

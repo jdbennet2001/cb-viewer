@@ -12,7 +12,7 @@ export default (state = {}, action={}) => {
 	   return Object.assign({}, state, {state: 'READING'});
 	}
 
-	if ( action.type === 'CLOSE_ARCHIVE'){
+	if ( action.type === 'EXIT_READER'){
 	   return Object.assign({}, state, {state: 'BROWSING'});
 	}
 	

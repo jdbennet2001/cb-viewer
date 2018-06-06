@@ -33,23 +33,11 @@ export const openArchiveAction = (payload) => dispatch => {
  })
 }
 
-export const closeArchiveAction = (payload) => dispatch => {
+export const exitReaderAction = (payload) => dispatch => {
+  debugger;
  dispatch({
-  type: 'CLOSE_ARCHIVE',
+  type: 'EXIT_READER',
   payload
  })
 }
 
-export const nextPageAction = (payload) => dispatch => {
- dispatch({
-  type: 'NEXT_PAGE',
-  payload
- })
-}
-
-export const previousPageAction = (payload) => dispatch => {
- dispatch({
-  type: 'PREVIOUS_PAGE',
-  payload
- })
-}
