@@ -3,8 +3,8 @@
 */
 
 import { combineReducers } from 'redux';
-import simpleReducer from './simpleReducer';
+import modelReducer from './modelReducer';
 
 export default combineReducers({
- simpleReducer
+ modelReducer
 });

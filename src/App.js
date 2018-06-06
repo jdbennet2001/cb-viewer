@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './App.css';
 
 
-import { simpleAction } from './actions/simpleAction'
+import { initAction } from './actions/initAction'
 import { Search } from 'carbon-components-react';
 
 import home_icon from './icons/home.svg'
@@ -14,6 +14,17 @@ class App extends Component {
 
   simpleAction = (event) => {
    this.props.simpleAction();
+  }
+
+  componentDidMount(){
+    debugger;
+    let action = this.props.simpleAction;
+    fetch("http://localhost:2002/model")
+    .then(response => {
+      return response.json()
+    }).then(jsondata => {
+      return action(jsondata);
+    })
   }
 
   render() {
@@ -41,7 +52,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
- simpleAction: () => dispatch(simpleAction())
+ simpleAction: (data)  => dispatch(initAction(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
