@@ -4,12 +4,20 @@ import path from 'path'
 export default (state = {}, action={}) => {
 
 	if ( action.type === 'MODEL_LOAD'){
-	   let directory_contents = get_contents(action.payload, action.payload.source_dir);
-	   return Object.assign({}, action.payload, directory_contents, {state: 'BROWSING'});
+	   return Object.assign({}, action.payload, {state: 'BROWSING'});
 	}
 
 	if ( action.type === 'OPEN_ARCHIVE'){
-	   return Object.assign({}, state, {state: 'READING'});
+
+	   //Mark opened archive as 'read'
+	   let archives = state.archives.map(archive =>{
+	   		let read = (action.payload.name === archive.name) || archive.read;
+	   		return Object.assign({}, archive, {read});
+	   })
+
+	   //Switch the UI into Reading mode
+	   let new_state =  Object.assign({}, state, {state: 'READING', archives});
+	   return new_state;
 	}
 
 	if ( action.type === 'EXIT_READER'){

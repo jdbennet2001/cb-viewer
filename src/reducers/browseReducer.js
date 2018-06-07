@@ -27,6 +27,17 @@ export default (state = {}, action={}) => {
 	   return Object.assign({}, state, directory_contents);
 	}
 
+	if ( action.type === 'OPEN_ARCHIVE'){
+
+	   //Mark opened archive as 'read'
+	   let current_archives = state.current_archives.map(archive =>{
+	   		let read = (action.payload.name === archive.name) || archive.read;
+	   		return Object.assign({}, archive, {read});
+	 	})
+
+	   return Object.assign({}, state, {current_archives});
+	}
+
 	return state;
 
 }
