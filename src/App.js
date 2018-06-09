@@ -8,7 +8,7 @@ import Reader  from './components/Reader'
 
 import {initAction} from './actions/initAction'
 
-const CB_SERVER_URL = "http://localhost:2002/model";
+const CB_SERVER_URL = "http://jons-macbook-pro.local:2002/model";
 
 /*
  Main class for the CB - Viewer Application

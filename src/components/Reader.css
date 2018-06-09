@@ -20,6 +20,8 @@
 
     background-color: grey;
     height: 50px;
+
+    z-index: 50;
 }
 
 .reader-header .bread-crumb{
@@ -37,6 +39,36 @@
     max-width: 100%;
 }
 
+.page.cache{
+    display: none;
+}
+
+.rightTargetArea{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 25;
+  width: 150px;
+  bottom: 0px;
+}
+
+.centerTargetArea{
+  position: fixed;
+  left: 150px;
+  right: 150px;
+  z-index: 25;
+  bottom: 0px;
+  top: 0px;
+}
+
+.leftTargetArea{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 25;
+  width: 150px;
+  bottom: 0px;
+}
 
 .reader-footer{
 	position: fixed;
@@ -52,6 +84,8 @@
 
     background-color: grey;
     height: 50px;
+
+    z-index: 50;
 }
 
 .reader-footer .slider{
@@ -59,6 +93,12 @@
     align-self: auto;
     margin: 0 25px;
 }
+
+.hide-controls {
+    display: none;
+}
+
+
 
 
 
