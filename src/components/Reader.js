@@ -18,12 +18,12 @@ class Reader extends Component {
 	constructor(props, context) {
 		super(props, context)
 
-		this.state = {
-			value: 0,
-			width: 0,
-			height: 0
-		};
-		this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+		let archive = this.props.model.archives.find(archive =>{
+  		return archive.open;
+  	})
+
+		this.state = Object.assign({}, archive, {	value: 0} );
+		// this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
 	}
 
@@ -35,20 +35,6 @@ class Reader extends Component {
 		return s;
 	}
 
-	/* Keep track of how big the screen is */
-	componentDidMount() {
-	  this.updateWindowDimensions();
-	  window.addEventListener('resize', this.updateWindowDimensions);
-	}
-
-	componentWillUnmount() {
-	  window.removeEventListener('resize', this.updateWindowDimensions);
-	}
-
-	updateWindowDimensions() {
-	 	let state = Object.assign({}, this.state, { width: window.innerWidth, height: window.innerHeight });
-	  	this.setState(state);
-	}
 
 	/* Allow arrow keys to navigate to the next page */
 	handleKeyPress = (e) => {
@@ -57,7 +43,7 @@ class Reader extends Component {
 		const LEFT_ARROW = 37;
 
 		let value = this.state.value;
-		let length = this.props.reading.length;
+		let length = this.state.length;
 
 		if (e.keyCode == RIGHT_ARROW) {
 			let state = Object.assign({}, this.state, {value: Math.min(length, ++value)});
@@ -84,9 +70,13 @@ class Reader extends Component {
 
   render() {
 
+  	debugger;
+
+
+
   	let {value} = this.state;
 
-  	let {directory, name, length, location, page} = this.props.reading;
+  	let {directory, name, length, location, page} = this.state;
   	let {source_dir} = this.props.model;
 
   	let folders = this.chompLeft(location,source_dir);
@@ -114,9 +104,9 @@ class Reader extends Component {
         <div className='reader-footer'>
         	<Slider  className='slider' value={value} max={length} onChange={this.onChange}  ></Slider>
         </div>
-      
+
       </div>
-        
+
     );
   }
 }
@@ -129,7 +119,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
- exitReader: (data) => dispatch(exitReaderAction(data)) 
+ exitReader: (data) => dispatch(exitReaderAction(data))
 
 })
 

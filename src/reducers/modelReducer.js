@@ -4,20 +4,52 @@ import path from 'path'
 export default (state = {}, action={}) => {
 
 	if ( action.type === 'MODEL_LOAD'){
-	   return Object.assign({}, action.payload, {state: 'BROWSING'});
+		let dir = action.payload.source_dir;
+		let state = action.payload;
+		//Map folders from a string to an object, TODO: Should the server do this?
+		let folders = action.payload.folders.map(folder =>{
+			return {directory: folder};
+		})
+		folders = get_folders(folders, dir);
+		let archives = get_archives(state.archives, dir);
+	   	return Object.assign({}, action.payload, {archives, folders, state: 'BROWSING', current_dir: dir});
 	}
+
+	if ( action.type === 'MODEL_UP'){
+	   	let is_root  = state.current_dir === state.source_dir;
+	   	let dir      = is_root ? state.source_dir : path.join(state.current_dir, '..' );
+		let archives = get_archives(state.archives, dir);
+		let folders  = get_folders(state.folders, dir);
+	   	return Object.assign({}, state, {archives, folders, state: 'BROWSING', current_dir: dir});
+	}
+
+	if ( action.type === 'MODEL_DOWN'){
+	   	let dir      = action.payload;
+		let archives = get_archives(state.archives, dir);
+		let folders  = get_folders(state.folders, dir);
+	   	return Object.assign({}, state, {archives, folders, state: 'BROWSING', current_dir: dir});
+
+	}
+
+	if ( action.type === 'MODEL_ROOT'){
+	   	let dir      = state.source_dir;
+		let archives = get_archives(state.archives, dir);
+		let folders  = get_folders(state.folders, dir);
+	   	return Object.assign({}, state, {archives, folders, state: 'BROWSING', current_dir: dir});
+	}
+
 
 	if ( action.type === 'OPEN_ARCHIVE'){
 
 	   //Mark opened archive as 'read'
 	   let archives = state.archives.map(archive =>{
 	   		let read = (action.payload.name === archive.name) || archive.read;
-	   		return Object.assign({}, archive, {read});
+	   		let open = (action.payload.name === archive.name);
+	   		return Object.assign({}, archive, {read, open});
 	   })
 
 	   //Switch the UI into Reading mode
-	   let new_state =  Object.assign({}, state, {state: 'READING', archives});
-	   return new_state;
+	   return  Object.assign({}, state, {state: 'READING', archives});
 	}
 
 	if ( action.type === 'EXIT_READER'){
@@ -29,17 +61,25 @@ export default (state = {}, action={}) => {
 
 }
 
-/* Return all folders and archives inside a given directory */
-function get_contents(state, directory){
+function get_folders(folders, directory){
 
-	let folders = state.folders.filter(folder =>{
-		let parent_folder = path.join(folder, '..');
-		return parent_folder === directory;
+
+	let mapped = folders.map(folder =>{
+		let parent_folder = path.join(folder.directory, '..');
+		let visible =  (parent_folder === directory);
+		return Object.assign({}, folder, {visible});
 	})
 
-	let archives = state.archives.filter(archive =>{
-		return archive.directory === directory;
-	})
-
-	return {current_dir: directory, current_folders: folders, current_archives: archives};
+	return mapped;
 }
+
+function get_archives(archives, directory){
+
+	let mapped = archives.map(archive =>{
+		let visible =  (archive.directory === directory);
+		return Object.assign({}, archive, {visible});
+	})
+
+	return mapped;
+}
+

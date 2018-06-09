@@ -20,8 +20,13 @@ class Browser extends Component {
 
   render() {
 
-  	let folders = this.props.browsing.current_folders || [];
-    let archives = this.props.browsing.current_archives || [];
+    let folders = this.props.model.folders.filter(folder =>{
+      return folder.visible;
+    })
+
+    let archives = this.props.model.archives.filter(archive =>{
+      return archive.visible;
+    })
 
 
     return (

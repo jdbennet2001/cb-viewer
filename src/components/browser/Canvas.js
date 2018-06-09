@@ -17,14 +17,14 @@ class Canvas extends Component {
     this.props.openArchiveAction(archive);
   }
 
-  openFolder = (folder) =>{
-    this.props.openFolderAction(folder);
+  openFolder = (folder_directory) =>{
+    this.props.openFolderAction(folder_directory);
   }
 
   render() {
 
     let folders = this.props.folders.map(folder =>{
-      return <Folder location={folder} onClick={this.openFolder} key={folder}></Folder>
+      return <Folder location={folder.directory} onClick={this.openFolder} key={folder.directory}></Folder>
     });
 
     let archives = this.props.archives.map(archive =>{
