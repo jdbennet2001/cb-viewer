@@ -19,7 +19,7 @@ class Folder extends Component {
 
     return (
         <div className='catalog-folder'>
-           <img src={comic} alt="Folder" onClick={this.handleClick} height="64" width="64"></img>
+           <img src={comic} alt="Folder" onClick={this.handleClick} ></img>
            <div>{folder_name}</div>
         </div>
         

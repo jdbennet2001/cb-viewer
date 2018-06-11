@@ -49,7 +49,14 @@ class Reader extends Component {
 		}
 	}
 
+	right_click_hander = (e) =>{
+		e.preventDefault();
+		this.next_page();
+		return false;
+	}
+
 	next_page = () =>{
+
 		let value  = this.state.value;
 		let length = this.state.length;
 			value  = Math.min(--length, ++value);
@@ -99,12 +106,12 @@ class Reader extends Component {
   		return <BreadcrumbItem href='#' key={folder}>{folder}</BreadcrumbItem>;
   	})
 
-  	let image = append_query( 'http://jons-macbook-pro.local:2002/page', {archive: location, number: value} );
+  	let image = append_query( `http://${window.location.hostname}:2002/page`, {archive: location, number: value} );
   	let cache_next1 = append_query( 'http://jons-macbook-pro.local:2002/page', {archive: location, number: value+1} );
   	let cache_next2 = append_query( 'http://jons-macbook-pro.local:2002/page', {archive: location, number: value+2} );
 
     return (
-      <div className='reader' onKeyDown={(event) => this.handleKeyPress(event)} tabIndex="0" >
+      <div className='reader' onKeyDown={(event) => this.handleKeyPress(event)} onContextMenu={this.right_click_hander} tabIndex="0" >
 
          <header className={header_css}>
              <Breadcrumb className="bread-crumb">

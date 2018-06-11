@@ -16,10 +16,11 @@ class Archive extends Component {
   render() {
 
     let archive_name = this.props.archive.name;
-    let status = this.props.archive.read ? 'read-issue' : 'new-issue';
+    let status = this.props.archive.read ? 'archive-info read-issue' : 'archive-info new-issue';
+    let cover = `http://${window.location.hostname}:2002/cover/${encodeURIComponent(archive_name)}`
     return (
         <div className='catalog-archive'>
-           <img src={comic_book} alt="Archive" onClick={this.handleClick} height="64" width="64"></img>
+           <img src={cover} alt="Archive" onClick={this.handleClick} ></img>
            <div className={status}>{archive_name}</div>
         </div>
         
