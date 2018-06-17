@@ -23,13 +23,29 @@ class Canvas extends Component {
 
   render() {
 
-    let folders = this.props.folders.map(folder =>{
+    let filter = this.props.filter;
+
+    let filtered_folders = this.props.folders.filter(folder =>{
+      return filter === undefined || folder.directory.toLowerCase().includes(filter.toLowerCase());
+    })
+
+
+    let filtered_archives = this.props.archives.filter(archive =>{
+      return filter === undefined || archive.name.toLowerCase().includes(filter.toLowerCase());
+    })
+
+
+    let folders = filtered_folders.map(folder =>{
       return <Folder location={folder.directory} onClick={this.openFolder} key={folder.directory}></Folder>
     });
 
-    let archives = this.props.archives.map(archive =>{
+    let archives = filtered_archives.map(archive =>{
       return <Archive archive={archive} onClick={this.openArchive} key={archive.name}></Archive>
     });
+
+
+
+
 
 
     return (
