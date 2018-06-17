@@ -4,8 +4,8 @@
   align-self: auto;
 
   /* Debug Color */
-  background-color: lightgrey;
-
+/*  background-color: lightgrey;
+*/
   /* Lay out items in the catalog area */
   display: flex;
   flex-direction: row;
@@ -14,7 +14,7 @@
   align-content: flex-start;
   align-items: flex-start;
 
-  overflow-y: scroll;
+  overflow-y: visible;
 
 }
 

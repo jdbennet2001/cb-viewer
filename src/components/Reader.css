@@ -5,6 +5,10 @@
 
 }
 
+.reader img {
+  image-rendering: crisp-edges;
+}
+
 .reader-header{
 
 	position: fixed;
@@ -12,7 +16,7 @@
     top: 0px;
     right: 0px;
 
-	display: flex;
+	  display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;

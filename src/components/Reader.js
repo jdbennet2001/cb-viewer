@@ -42,7 +42,7 @@ class Reader extends Component {
 		const RIGHT_ARROW = 39;
 		const LEFT_ARROW = 37;
 
-		if (e.keyCode == RIGHT_ARROW) {
+		if (e.keyCode === RIGHT_ARROW) {
 			this.next_page()
 		} else if (e.keyCode === LEFT_ARROW) {
 			this.prev_page();
@@ -86,6 +86,12 @@ class Reader extends Component {
 		console.log('Slide! ' + value);
 	}
 
+	componentWillUpdate = () => {
+  		// const node = this.getDOMNode();
+  		// this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+  		window.scrollTo(0,0)
+	}
+
   render() {
 
 
@@ -107,8 +113,11 @@ class Reader extends Component {
   	})
 
   	let image = append_query( `http://${window.location.hostname}:2002/page`, {archive: location, number: value} );
-  	let cache_next1 = append_query( 'http://jons-macbook-pro.local:2002/page', {archive: location, number: value+1} );
-  	let cache_next2 = append_query( 'http://jons-macbook-pro.local:2002/page', {archive: location, number: value+2} );
+  	let cache_next1 = append_query( `http://${window.location.hostname}:2002/page`, {archive: location, number: value+1} );
+  	let cache_next2 = append_query( `http://${window.location.hostname}:2002/page`, {archive: location, number: value+2} );
+
+  	let cache_key1 = cache_next1 + new Date().getTime();
+  	let cache_key2 = cache_next2 + new Date().getTime();
 
     return (
       <div className='reader' onKeyDown={(event) => this.handleKeyPress(event)} onContextMenu={this.right_click_hander} tabIndex="0" >
@@ -120,13 +129,13 @@ class Reader extends Component {
           <img className='home-action' src={home_icon} onClick={this.props.exitReader} alt="Home" height="32" width="32"></img>
         </header>
 
-		<div className='leftTargetArea' onClick={this.prev_page}></div>
+		<div className='leftTargetArea' onClick={this.next_page}></div>
 		<div className='centerTargetArea' onClick={this.toggle_controls}></div>
 		<div className='rightTargetArea' onClick={this.next_page}></div>
 				
         <img  ref={input => input && input.focus()} className='page'  key={image} src={image} tabIndex="0"></img>
-        <img  ref={input => input && input.focus()} className='page cache' key={cache_next1} src={cache_next1} tabIndex="1" ></img>
-        <img  ref={input => input && input.focus()} className='page cache' key={cache_next2} src={cache_next2} tabIndex="1" ></img>
+        <img  className='page cache' key={cache_next1} src={cache_next1} tabIndex="1" ></img>
+        <img  className='page cache' key={cache_next2} src={cache_next2} tabIndex="2" ></img>
 
         <div className={footer_css}>
         	<Slider  className='slider' value={value} max={length} onChange={this.onChange}  ></Slider>

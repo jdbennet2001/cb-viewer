@@ -1,13 +1,8 @@
 .App {
   text-align: center;
 
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-content: stretch;
-    align-items: stretch;
     height: 100%;
+    width: 100%
 }
 
 .App-header {
@@ -16,8 +11,9 @@
   padding: 5px;
   color: white;
 
-  flex: 0 1 auto;
-  align-self: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 
@@ -33,7 +29,6 @@
 }
 
 .catalog-area{
-  flex: 1 1 auto;
   align-self: auto;
   background-color: lightgrey;
 }
