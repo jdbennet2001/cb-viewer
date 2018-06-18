@@ -48,12 +48,31 @@ export default (state = {}, action={}) => {
 	   		return Object.assign({}, archive, {read, open});
 	   })
 
+	   let current_dir = action.payload.directory;
+
 	   //Switch the UI into Reading mode
-	   return  Object.assign({}, state, {state: 'READING', archives});
+	   return  Object.assign({}, state, {state: 'READING', archives, current_dir});
 	}
 
 	if ( action.type === 'EXIT_READER'){
 	   return Object.assign({}, state, {state: 'BROWSING'});
+	}
+
+	if ( action.type === 'RANDOM_SELECTION'){
+
+		let archives = state.archives.map(archive =>{
+			return Object.assign({}, archive, {visible:false});
+		})
+
+		for (var i = 0; i < 20; i++) {
+			 let update =  Math.floor(Math.random() * Math.floor(archives.length));
+ 			 archives[update].visible = true;
+		}
+
+		let folders  = state.folders.map(folder => {
+			return Object.assign({}, folder, {visible:false});
+		})
+	   	return Object.assign({}, state, {archives, folders, state: 'BROWSING'});
 	}
 	
 	

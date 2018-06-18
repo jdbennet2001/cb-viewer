@@ -8,12 +8,14 @@ import {Search} from 'carbon-components-react';
 
 import home_icon from '../icons/home.svg'
 import parent_icon from '../icons/parent-folder.svg'
+import random_icon from '../icons/random.svg'
 
 import {
   openFolderAction,
   openParentFolderAction,
   openRootFolderAction,
-  openArchiveAction
+  openArchiveAction,
+  randomArchiveAction
 } from '../actions/initAction'
 
 class Browser extends Component {
@@ -44,6 +46,9 @@ class Browser extends Component {
     //Bind the filter handler to ensure 'this' is correct
     this.doFilter = this.doFilter.bind(this);
 
+    let home_dir = (this.props.model.current_dir == this.props.model.source_dir);
+
+
     return (
 		<div className="App">
         
@@ -51,6 +56,9 @@ class Browser extends Component {
 
           <img className='top-action' src={home_icon} onClick={this.props.openRootFolderAction} alt="Home" height="32" width="32"></img>
           <img className='top-action' src={parent_icon} onClick={this.props.openParentFolderAction} alt="Parent Folder" height="32" width="32"></img>
+          { home_dir && 
+            <img className='top-action' src={random_icon} onClick={this.props.displayRandomAction} alt="Random" height="32" width="32"></img>
+          }
           <Search  className="top-search" labelText="Search" onChange={this.doFilter} placeHolderText="Search" />
 
         </header>
@@ -76,8 +84,8 @@ const mapDispatchToProps = dispatch => ({
  openFolder: (data) => dispatch(openFolderAction(data)),
  openParentFolderAction: (data) => dispatch(openParentFolderAction(data)),
  openRootFolderAction: (data) => dispatch(openRootFolderAction(data)),
- openArchiveAction: (data) => dispatch(openArchiveAction(data))
-
+ openArchiveAction: (data) => dispatch(openArchiveAction(data)),
+ displayRandomAction: (data) => dispatch(randomArchiveAction(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Browser);

@@ -41,3 +41,11 @@ export const exitReaderAction = (payload) => dispatch => {
  })
 }
 
+
+export const randomArchiveAction = (payload) => dispatch => {
+  debugger;
+ dispatch({
+  type: 'RANDOM_SELECTION',
+  payload
+ })
+}
