@@ -41,17 +41,20 @@ export default (state = {}, action={}) => {
 
 	if ( action.type === 'OPEN_ARCHIVE'){
 
+	   let current_dir = action.payload.directory;
+
+	   let archives = get_archives(state.archives, current_dir);
+	   let folders  = get_folders(state.folders, current_dir);
+
 	   //Mark opened archive as 'read'
-	   let archives = state.archives.map(archive =>{
+	   archives = archives.map(archive =>{
 	   		let read = (action.payload.name === archive.name) || archive.read;
 	   		let open = (action.payload.name === archive.name);
 	   		return Object.assign({}, archive, {read, open});
 	   })
 
-	   let current_dir = action.payload.directory;
-
 	   //Switch the UI into Reading mode
-	   return  Object.assign({}, state, {state: 'READING', archives, current_dir});
+	   return  Object.assign({}, state, {state: 'READING', archives, folders, current_dir});
 	}
 
 	if ( action.type === 'EXIT_READER'){
