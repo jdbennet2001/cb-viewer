@@ -6,7 +6,7 @@
 }
 
 .reader img {
-  image-rendering: crisp-edges;
+  image-rendering: optimizeQuality;
 }
 
 .reader-header{
