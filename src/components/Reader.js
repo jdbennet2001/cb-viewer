@@ -8,7 +8,8 @@ import Slider from 'react-rangeslider'
 
 import {exitReaderAction} from '../actions/initAction'
 
-import home_icon from '../icons/home.svg'
+import home_icon 	from '../icons/home.svg'
+import fit_icon 	from '../icons/fit_to_screen.svg'
 
 import append_query from 'append-query';
 
@@ -22,7 +23,7 @@ class Reader extends Component {
   			return archive.open;
   		})
 
-		this.state = Object.assign({}, archive, {value: 0, controls_visible: false} );
+		this.state = Object.assign({}, archive, {value: 0, controls_visible: false, fitToScreen: false} );
 		// this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
 	}
@@ -92,6 +93,13 @@ class Reader extends Component {
   		window.scrollTo(0,0)
 	}
 
+	fitToScreen(){
+		let state = this.state;
+		let fitToScreen = !state.fitToScreen;
+			state = Object.assign({}, state, {fitToScreen});
+		this.setState(state);
+	}
+
   render() {
 
 
@@ -99,6 +107,8 @@ class Reader extends Component {
 
   	let {directory, name, length, location, page} = this.state;
   	let {source_dir} = this.props.model;
+
+  	let fit_handler = this.fitToScreen.bind(this);
 
   	let folders = this.chompLeft(location,source_dir);
   		folders = this.chompLeft(folders, '/');
@@ -119,6 +129,8 @@ class Reader extends Component {
   	let cache_key1 = cache_next1 + new Date().getTime();
   	let cache_key2 = cache_next2 + new Date().getTime();
 
+  	let page_css = this.state.fitToScreen ? 'page fit' : 'page'
+
     return (
       <div className='reader' onKeyDown={(event) => this.handleKeyPress(event)} onContextMenu={this.right_click_hander} tabIndex="0" >
 
@@ -127,13 +139,14 @@ class Reader extends Component {
 	         	{breadcrumbs}
 			</Breadcrumb>
           <img className='home-action' src={home_icon} onClick={this.props.exitReader} alt="Home" height="32" width="32"></img>
+          <img className='fit-action' src={fit_icon} onClick={fit_handler} alt="fitToScreen" height="32" width="32"></img>
         </header>
 
 		<div className='leftTargetArea' onClick={this.next_page}></div>
 		<div className='centerTargetArea' onClick={this.toggle_controls}></div>
 		<div className='rightTargetArea' onClick={this.next_page}></div>
 				
-        <img  ref={input => input && input.focus()} className='page'  key={image} src={image} tabIndex="0"></img>
+        <img  ref={input => input && input.focus()} className={page_css}  key={image} src={image} tabIndex="0"></img>
         <img  className='page cache' key={cache_next1} src={cache_next1} tabIndex="1" ></img>
         <img  className='page cache' key={cache_next2} src={cache_next2} tabIndex="2" ></img>
 
