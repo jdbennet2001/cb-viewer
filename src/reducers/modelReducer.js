@@ -101,11 +101,6 @@ function get_archives(archives, directory){
 
 		let visible =  (archive.directory === directory);
 		let {name} = archive;
-
-		if ( name.includes('JSA by Geoff')){
-			debugger;
-		}
-
 		return Object.assign({}, archive, {visible});
 	})
 

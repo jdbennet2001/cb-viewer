@@ -19,6 +19,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width:100%;
+    text-align: center;
+}
+
+.catalog-archive .number{
+	float: left;
+}
+
+.catalog-archive .pages{
+	float: right;
 }
 
 
