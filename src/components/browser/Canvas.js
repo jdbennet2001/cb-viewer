@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Canvas.css';
+import _ from 'lodash'
 
 import comic from '../../icons/comic.svg'
 
@@ -26,12 +27,12 @@ class Canvas extends Component {
     let filter = this.props.filter;
 
     let filtered_folders = this.props.folders.filter(folder =>{
-      return filter === undefined || folder.directory.toLowerCase().includes(filter.toLowerCase());
+      return _.isEmpty(filter) || folder.directory.toLowerCase().includes(filter.toLowerCase());
     })
 
 
     let filtered_archives = this.props.archives.filter(archive =>{
-      return filter === undefined || archive.name.toLowerCase().includes(filter.toLowerCase());
+      return _.isEmpty(filter) || archive.name.toLowerCase().includes(filter.toLowerCase());
     })
 
 

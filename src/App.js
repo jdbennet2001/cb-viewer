@@ -8,7 +8,7 @@ import Reader  from './components/Reader'
 
 import {initAction} from './actions/initAction'
 
-const CB_SERVER_URL = `http://${window.location.hostname}:2002/model`;
+const CB_SERVER_URL = `http://${window.location.hostname}:2002/model?key=${Date.now()}`;
 
 /*
  Main class for the CB - Viewer Application
