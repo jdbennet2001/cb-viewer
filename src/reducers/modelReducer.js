@@ -1,5 +1,7 @@
 import path from 'path'
+import _ 		from 'lodash'
 
+const 	MAX_HISTORY_SIZE = 20;
 
 export default (state = {}, action={}) => {
 
@@ -46,6 +48,12 @@ export default (state = {}, action={}) => {
 	   let archives = get_archives(state.archives, current_dir);
 	   let folders  = get_folders(state.folders, current_dir);
 
+		 let history = window.localStorage.getItem('archive-history');
+				 history = (history) ? JSON.parse(history) : [];
+				 history.push(action.payload.name);
+				 history = _.takeRight(history, MAX_HISTORY_SIZE);
+			window.localStorage.setItem('archive-history', JSON.stringify(history));
+
 	   //Mark opened archive as 'read'
 	   archives = archives.map(archive =>{
 	   		let read = (action.payload.name === archive.name) || archive.read;
@@ -77,8 +85,28 @@ export default (state = {}, action={}) => {
 		})
 	   	return Object.assign({}, state, {archives, folders, state: 'BROWSING'});
 	}
-	
-	
+
+	if ( action.type === 'HISTORY_SELECTION'){
+
+		let history = window.localStorage.getItem('archive-history');
+			  history = (history) ? JSON.parse(history) : [];
+
+		let archives = state.archives.map(archive =>{
+			if ( history.includes(archive.name) ){
+				return Object.assign({}, archive, {visible:true});
+			}else{
+				return Object.assign({}, archive, {visible:false});
+			}
+		})
+
+		let folders  = state.folders.map(folder => {
+			return Object.assign({}, folder, {visible:false});
+		})
+
+   	return Object.assign({}, state, {archives, folders, state: 'BROWSING'});
+	}
+
+
 	return state;
 
 }
@@ -110,4 +138,3 @@ function get_archives(archives, directory){
 
 	return mapped;
 }
-

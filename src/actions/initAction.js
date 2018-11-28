@@ -49,3 +49,11 @@ export const randomArchiveAction = (payload) => dispatch => {
   payload
  })
 }
+
+
+export const historyArchiveAction = (payload) => dispatch => {
+ dispatch({
+  type: 'HISTORY_SELECTION',
+  payload
+ })
+}
