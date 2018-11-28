@@ -58,8 +58,11 @@ class Browser extends Component {
 
         <header className="App-header">
 
+
           <img className='top-action' src={home_icon} onClick={this.props.openRootFolderAction} alt="Home" height="32" width="32"></img>
-          <img className='top-action' src={parent_icon} onClick={this.props.openParentFolderAction} alt="Parent Folder" height="32" width="32"></img>
+          {!home_dir &&
+            <img className='top-action' src={parent_icon} onClick={this.props.openParentFolderAction} alt="Parent Folder" height="32" width="32"></img>
+          }
           { home_dir &&
             <img className='top-action' src={random_icon} onClick={this.props.displayRandomAction} alt="Random" height="32" width="32"></img>
           }
