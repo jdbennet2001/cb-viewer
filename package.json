@@ -8,6 +8,7 @@
     "carbon-components-react": "^6.1.0",
     "carbon-icons": "^7.0.6",
     "path": "^0.12.7",
+    "path-browserify": "^1.0.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-rangeslider": "^2.2.0",
@@ -17,7 +18,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "PORT=3006 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

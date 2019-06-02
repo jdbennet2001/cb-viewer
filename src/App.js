@@ -24,6 +24,9 @@ class App extends Component {
       return response.json()
     }).then(jsondata => {
       return action(jsondata);
+    }).catch(err =>{
+      debugger;
+      console.err(`Error fetching catalog data: ${err.message}`);
     })
     
   }

@@ -9,13 +9,14 @@ import comic from '../../icons/comic.svg'
 class Folder extends Component {
 
    handleClick = () => {
-    this.props.onClick(this.props.location);
+    this.props.onClick(this.props.location.directory);
   }
 
 
   render() {
 
-    let folder_name = path.basename(this.props.location);
+      debugger;
+    let {name:folder_name} = (this.props.location);
 
     return (
         <div className='catalog-folder'>

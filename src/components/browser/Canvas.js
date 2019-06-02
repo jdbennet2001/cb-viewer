@@ -37,7 +37,7 @@ class Canvas extends Component {
 
 
     let folders = filtered_folders.map(folder =>{
-      return <Folder location={folder.directory} onClick={this.openFolder} key={folder.directory}></Folder>
+      return <Folder location={folder} onClick={this.openFolder} key={folder.directory}></Folder>
     });
 
     let archives = filtered_archives.map(archive =>{

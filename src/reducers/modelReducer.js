@@ -1,5 +1,6 @@
 import path from 'path'
 import _ 		from 'lodash'
+import os from 'os'
 
 const 	MAX_HISTORY_SIZE = 20;
 
@@ -9,10 +10,8 @@ export default (state = {}, action={}) => {
 		let dir = action.payload.source_dir;
 		let state = action.payload;
 		//Map folders from a string to an object, TODO: Should the server do this?
-		let folders = action.payload.folders.map(folder =>{
-			return {directory: folder};
-		})
-		folders = get_folders(folders, dir);
+		let folders = action.payload.folders;
+			folders = get_folders(folders, dir);
 		let archives = get_archives(state.archives, dir);
 	   	return Object.assign({}, action.payload, {archives, folders, state: 'BROWSING', current_dir: dir});
 	}
@@ -115,8 +114,8 @@ function get_folders(folders, directory){
 
 
 	let mapped = folders.map(folder =>{
-		let parent_folder = path.join(folder.directory, '..');
-		let visible =  (parent_folder === directory);
+		
+		let visible =  (folder.parent === directory);
 		return Object.assign({}, folder, {visible});
 	})
 
